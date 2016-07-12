@@ -22,6 +22,7 @@
     <!-- 扫描注解所在的包，注意不要包含java config的路径 -->
     <context:component-scan base-package="jlxy.sample.aop"/>
     <context:component-scan base-package="jlxy.sample.service"/>
+    <context:component-scan base-package="jlxy.sample.DAO"/>
     
     <!-- 配置数据源 -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

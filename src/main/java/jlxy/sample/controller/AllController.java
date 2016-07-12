@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ImportResource;
  *
  * @author yecq
  */
-@Import({SampleController.class})
+@Import({SampleController.class,UserOrderController.class})
 @ImportResource("classpath:applicationContext.xml")
 public class AllController {
 
