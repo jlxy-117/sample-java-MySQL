@@ -19,13 +19,14 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.JmsUtils;
 
 /**
- *接受消息
+ * 接受消息
+ *
  * @author SONY
  */
-public class ReceiverServiceImpl{
+public class ReceiverServiceImpl {
 
     private JmsTemplate jmsTemplate;
-    
+
     @Autowired
     private JdbcTemplate jdbc;
 
@@ -45,29 +46,31 @@ public class ReceiverServiceImpl{
             throw JmsUtils.convertJmsAccessException(ex);
         }
     }
-    
-    public void re(Map map){
-//        System.out.println("id..." + map.get("id") + "...");
-//        System.out.println("from..." + map.get("start") + "...");
-//        System.out.println("to..." + map.get("end") + "...");
-//        System.out.println("fare..." + map.get("fare") + "...");
-        //先扣除余额
-        String getBalanceSql = "select cash from user_list where user_id=" + map.get("id");
-        Map<String,Object> res;
-        res = jdbc.queryForMap(getBalanceSql);
-        float balance = Float.parseFloat(res.get("cash").toString());
-        balance -= Float.parseFloat(map.get("fare").toString());
-        //。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+
+    public void re(Map map) {
+        if ("self".equals(map.get("type"))) {
+            //个人票
+            //先扣除余额
+            String getBalanceSql = "select cash from user_list where user_id=" + map.get("id");
+            Map<String, Object> res;
+            res = jdbc.queryForMap(getBalanceSql);
+            float balance = Float.parseFloat(res.get("cash").toString());
+            balance -= Float.parseFloat(map.get("fare").toString());
+            //。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 //        System.out.println(balance);
-        String updateSql = "update user_list set cash=? where user_id=?";
-        jdbc.update(updateSql,String.valueOf(balance),map.get("id"));
-        //增加记录
-        String sql = "insert into user_order(user_id,station_no_start,station_no_end,cost_cash,cost_date) values(?,?,?,?,?)";
-        java.util.Date utilDate = new java.util.Date();      
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); 
+            String updateSql = "update user_list set cash=? where user_id=?";
+            jdbc.update(updateSql, String.valueOf(balance), map.get("id"));
+            //增加记录
+            String sql = "insert into user_order(user_id,station_no_start,station_no_end,cost_cash,cost_date) values(?,?,?,?,?)";
+            java.util.Date utilDate = new java.util.Date();
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 //        float fare = Float.parseFloat(map.get("fare").toString());
 //        fare =  
-        jdbc.update(sql, map.get("id"), map.get("start"), map.get("end"), map.get("fare"), sqlDate);
+            jdbc.update(sql, map.get("id"), map.get("start"), map.get("end"), map.get("fare"), sqlDate);
+        }else{
+            //单程票
+            System.out.println("单程票");
+        }
     }
 
 }

@@ -25,6 +25,7 @@ public class UserInfoController {
     
      @RequestMapping(value = "/getUserInfo", method = RequestMethod.GET)
      public Map<String,Object> getUserInfo(@RequestParam("user_id") String id){
+         //返回的map中存在一个键valid判断余额
          return uid.getUserInfo(id);
      }
 }
