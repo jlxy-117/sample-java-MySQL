@@ -1,9 +1,9 @@
-package jlxy.sample;
+package spartan117.sample;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jlxy.sample.MQ.ReceiverServiceImpl;
-import jlxy.sample.controller.AllController;
+import spartan117.sample.MQ.ReceiverServiceImpl;
+import spartan117.sample.controller.AllController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;

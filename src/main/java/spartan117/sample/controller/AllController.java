@@ -1,4 +1,4 @@
-package jlxy.sample.controller;
+package spartan117.sample.controller;
 
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ImportResource;
  *
  * @author yecq
  */
-@Import({SampleController.class,UserOrderController.class,UserInfoController.class})
+@Import({SampleController.class,UserOrderController.class,UserInfoController.class, UnusedOrderController.class})
 @ImportResource("classpath:applicationContext.xml")
 public class AllController {
 

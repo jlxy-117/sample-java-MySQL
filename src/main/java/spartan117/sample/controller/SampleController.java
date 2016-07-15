@@ -1,8 +1,8 @@
-package jlxy.sample.controller;
+package spartan117.sample.controller;
 
 import java.util.List;
 import java.util.Map;
-import jlxy.sample.service.SampleService;
+import spartan117.sample.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.PathVariable;

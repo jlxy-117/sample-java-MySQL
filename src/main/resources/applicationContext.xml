@@ -20,9 +20,9 @@
                             ">
     
     <!-- 扫描注解所在的包，注意不要包含java config的路径 -->
-    <context:component-scan base-package="jlxy.sample.aop"/>
-    <context:component-scan base-package="jlxy.sample.service"/>
-    <context:component-scan base-package="jlxy.sample.DAO"/>
+    <context:component-scan base-package="spartan117.sample.aop"/>
+    <context:component-scan base-package="spartan117.sample.service"/>
+    <context:component-scan base-package="spartan117.sample.DAO"/>
     
     <!-- 配置数据源 -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -70,7 +70,7 @@
     <!--sender-->
     <!--<bean id="sender" class="jason20160627.springtest.activeMQTest.SenderServiceImpl" p:jmsTemplate-ref="jmsTemplate" />-->
     <!--receiver-->
-    <bean id="receiver" class="jlxy.sample.MQ.ReceiverServiceImpl" p:jmsTemplate-ref="jmsTemplate" />
+    <bean id="receiver" class="spartan117.sample.MQ.ReceiverServiceImpl" p:jmsTemplate-ref="jmsTemplate" />
     <!--消息监听器-->
     <jms:listener-container connection-factory="connectionFactory" >
         <jms:listener destination="test.queue" ref="receiver" method="re" />

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jlxy.sample.DAO;
+package spartan117.sample.DAO;
 
 import java.util.HashMap;
 import java.util.List;

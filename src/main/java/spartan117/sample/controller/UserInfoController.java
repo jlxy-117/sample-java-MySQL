@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jlxy.sample.controller;
+package spartan117.sample.controller;
 
 import java.util.Map;
-import jlxy.sample.DAO.UserInfoDao;
+import spartan117.sample.DAO.UserInfoDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
