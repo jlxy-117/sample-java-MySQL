@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @author SONY
  */
 @Component
-public class UserInfoDao {
+public class UserInfoDAO {
     
     @Autowired
     public JdbcTemplate jdbc;
