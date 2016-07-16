@@ -58,7 +58,7 @@
     <tx:annotation-driven /> 
     
     <!-- 配置aop -->
-    <!--<aop:aspectj-autoproxy/>-->
+    <aop:aspectj-autoproxy/>
     
     <!--ActiveMQTest-->
     <!--连接工厂-->

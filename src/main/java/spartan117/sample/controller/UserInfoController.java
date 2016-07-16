@@ -6,7 +6,7 @@
 package spartan117.sample.controller;
 
 import java.util.Map;
-import spartan117.sample.DAO.UserInfoDao;
+import spartan117.sample.DAO.UserInfoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ *用于二维码信息
  * @author SONY
  */
 @RestController
 public class UserInfoController {
     
     @Autowired
-    private UserInfoDao uid;
+    private UserInfoDAO uid;
     
      @RequestMapping(value = "/getUserInfo", method = RequestMethod.GET)
      public Map<String,Object> getUserInfo(@RequestParam("user_id") String id){
