@@ -6,7 +6,7 @@
 package spartan117.sample.figureOutFare;
 
 /**
- *
+ * 上海1、2号线初始化实现
  * @author turkeylock
  */
 import java.util.ArrayList;  

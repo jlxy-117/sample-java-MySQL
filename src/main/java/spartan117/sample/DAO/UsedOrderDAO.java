@@ -22,7 +22,7 @@ public class UsedOrderDAO {
      
      //通过用户id来查询订单
      public List<Map<String,Object>> getUsedOrderById(String id) {
-        return this.jdbc.queryForList("select * from used_order where user_id = ?", id);
+        return this.jdbc.queryForList("select top 15 * from used_order where user_id = ? order by cost_date", id);
 //        return "始发站:"+info.get("station_no_start")+"--->"+"终点站:"+info.get("station_no_end")+"----票价:"+info.get("cost_cash")+"-------"+"消费时间:"+info.get("cost_date");
      }
      

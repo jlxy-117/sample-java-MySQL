@@ -37,7 +37,7 @@ public class UserListDAO {
         String userId = generator.getID(phone);
         String name = phone.substring(0,3) + "****" + phone.substring(7,11);
         String sql = "insert into user_list values(?,?,?,?,?,?,?,?,?)";
-        this.jdbc.update(sql,userId,phone,passwd,name,"/","0.0",dateString,"0","0");
+        this.jdbc.update(sql,userId,phone,passwd,name,"/","0.0",dateString,"0","0","0");
         cbd.BindCreditCard(userId);
         return userId;
     }
@@ -68,8 +68,11 @@ public class UserListDAO {
     }
 
     //设置老人
-    public void updateUserOld(String UserId) {
-        this.jdbc.update("update user_list set is_oldman=? where id=?",1,UserId);
+    public void updateUserOld(String UserId,boolean older) {
+        if(older == false)
+            this.jdbc.update("update user_list set is_oldman=? where id=?",1,UserId);
+        else
+            this.jdbc.update("update user_list set is_free=? where id=?",1,UserId);
     }
 
     //设置和取消学生
@@ -94,6 +97,14 @@ public class UserListDAO {
     public boolean isOld(String UserId)
     {
         String sql = "select is_oldman from user_list where id=?";
+        int old = this.jdbc.queryForObject(sql, new Object[]{UserId}, Integer.class);
+        return old == 1;
+    }
+    
+    //查询用户判断是否免票
+    public boolean isFree(String UserId)
+    {
+        String sql = "select is_free from user_list where id=?";
         int old = this.jdbc.queryForObject(sql, new Object[]{UserId}, Integer.class);
         return old == 1;
     }

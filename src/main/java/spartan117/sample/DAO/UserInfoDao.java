@@ -41,6 +41,8 @@ public class UserInfoDAO {
         }
         if(user.isOld(id))
             m.put("type", "老人");
+        else if(user.isFree(id))
+            m.put("type", "免票");
         else if(user.isStu(id))
             m.put("type","学生");
         else

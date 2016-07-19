@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.List;  
 import java.util.Set;  
 /**
- *
+ * 南京地铁线路初始化实现
  * @author turkeylock
  */
 public class NanjingInit implements Init{

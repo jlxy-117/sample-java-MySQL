@@ -43,6 +43,8 @@ public class DiscountDAO {
             return this.jdbc.queryForMap("select discount from cash_discount where user_belong = 'old' and city_id = ?", CityId);
         else if(user.isStu(UserId))
             return this.jdbc.queryForMap("select discount from cash_discount where user_belong = 'stu' and city_id = ?", CityId);
+        else if(user.isFree(UserId))
+            return this.jdbc.queryForMap("select discount from cash_discount where user_belong = 'fre' and city_id = ?", CityId);
         else
             return this.jdbc.queryForMap("select discount from cash_discount where user_belong = 'nol' and city_id = ?", CityId);
     }
