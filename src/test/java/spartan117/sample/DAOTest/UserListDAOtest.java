@@ -33,14 +33,14 @@ public class UserListDAOtest {
     
     @Test
     public void test1(){
-        uld.addUser("18888888888", "888888888888888");
+        uld.addUser("18888888888", "888888888888888","小明");
         List ret = this.jdbc.queryForList("select * from user_list where phone_number=18888888888");
         assertThat(ret.size(),is(1));
     }
     
     @Test
     public void test2(){
-        String user_id = uld.addUser("17777777777", "7777777777");
+        String user_id = uld.addUser("17777777777", "7777777777","小红");
         uld.updateUserCash(user_id, 50);
         uld.updateUserName(user_id, "diaomo");
         uld.updateUserPic(user_id, "/pic");

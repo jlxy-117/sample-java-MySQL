@@ -5,9 +5,12 @@
  */
 package spartan117.sample.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,16 +22,22 @@ import spartan117.sample.DAO.UsedOrderDAO;
  * @author turkeylock
  */
 @RestController
+@EnableAutoConfiguration
 public class UsedOrderController {
+
     @Autowired
     private UsedOrderDAO uo;
-    
+
     @RequestMapping(value = "/getUsedOrder", method = RequestMethod.GET)
     public List<Map<String, Object>> getUserOrder(@RequestParam("user_id") String id) {
-//        List<Map<String, Object>> l = uo.getUserOrderById(id);
-//        for(Map m : l){
-//            System.out.println(m.get("user_id").toString() + m.get("station_no_start").toString() + m.get("station_no_end").toString());
-//        }
-        return uo.getUsedOrderById(id);   
+        if (uo.checkOrder(id) == 0) {
+            Map<String, Object> noOrder = new HashMap<String, Object>();
+            noOrder.put("message", "您还没有订单");
+            List<Map<String, Object>> noList = new ArrayList<Map<String, Object>>();
+            noList.add(noOrder);
+            return noList;
+        } else {
+            return uo.getUsedOrderById(id);
+        }
     }
 }

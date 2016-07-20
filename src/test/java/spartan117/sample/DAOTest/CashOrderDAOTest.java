@@ -20,27 +20,27 @@ import spartan117.sample.DAO.CashOrderDAO;
  *
  * @author SONY
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
-public class CashOrderDAOTest {
-    
-    @Autowired
-    private CashOrderDAO cod;
-    
-    @Autowired
-    private JdbcTemplate jdbc;
-    
-    @Test
-    public void test1(){
-        cod.updateCashOrder("111", 50, "alipay");
-        List ret = this.jdbc.queryForList("select * from cash_order where user_id=?","111");
-        assertThat(ret.size(),is(1));
-    }
-    
-    @Test
-    public void test2(){
-        cod.updateCashOrder("111", 100, "alipay");
-        List ret = cod.getCashOrderById("111");
-        assertThat(ret.size(),is(2));
-    }
-}
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
+//public class CashOrderDAOTest {
+//    
+//    @Autowired
+//    private CashOrderDAO cod;
+//    
+//    @Autowired
+//    private JdbcTemplate jdbc;
+//    
+//    @Test
+//    public void test1(){
+//        cod.updateCashOrder("111", 50, "alipay");
+//        List ret = this.jdbc.queryForList("select * from cash_order where user_id=?","111");
+//        assertThat(ret.size(),is(1));
+//    }
+//    
+//    @Test
+//    public void test2(){
+//        cod.updateCashOrder("111", 100, "alipay");
+//        List ret = cod.getCashOrderById("111");
+//        assertThat(ret.size(),is(2));
+//    }
+//}

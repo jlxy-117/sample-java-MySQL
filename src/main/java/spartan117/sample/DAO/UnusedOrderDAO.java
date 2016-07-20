@@ -6,6 +6,7 @@
 package spartan117.sample.DAO;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,4 +55,37 @@ public class UnusedOrderDAO {
     {
         return this.jdbc.queryForList("select * from unused_order where user_id = ?",UserId);
     }
+    
+    //根据订单号查询单笔订单
+    public Map<String,Object> getUnusedOrderByOrderId(String id)
+    {
+        return this.jdbc.queryForMap("select cost_cash from unused_order where id = ?", id);
+    }
+    
+    //检查订单是否存在
+    public boolean checkOrderId(String id)
+    {
+        List<Map<String,Object>> orders = new ArrayList<Map<String,Object>>();
+        orders=this.jdbc.queryForList("select * from unused_order");
+        for(Map<String,Object> check : orders)
+        {
+            if(id.equals(check.get("id").toString()))
+                return true;
+        }
+        return false;
+    }
+    
+    //检查用户是否拥有订单
+    public boolean checkUserId(String user_id)
+    {
+        List<Map<String,Object>> orders = new ArrayList<Map<String,Object>>();
+        orders=this.jdbc.queryForList("select user_id from unused_order");
+        for(Map<String,Object> check : orders)
+        {
+            if(user_id.equals(check.get("user_id").toString()))
+                return true;
+        }
+        return false;
+    }
+    
 }

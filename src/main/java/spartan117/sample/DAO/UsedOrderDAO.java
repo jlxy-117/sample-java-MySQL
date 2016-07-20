@@ -5,6 +5,7 @@
  */
 package spartan117.sample.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,12 @@ public class UsedOrderDAO {
      @Autowired
      public JdbcTemplate jdbc;
      
-     //通过用户id来查询订单
+     //通过用户id来查询订单 前10条记录
      public List<Map<String,Object>> getUsedOrderById(String id) {
-        return this.jdbc.queryForList("select top 15 * from used_order where user_id = ? order by cost_date", id);
-//        return "始发站:"+info.get("station_no_start")+"--->"+"终点站:"+info.get("station_no_end")+"----票价:"+info.get("cost_cash")+"-------"+"消费时间:"+info.get("cost_date");
+         int count = this.checkOrder(id);
+         if(count > 10)
+             count = 10;
+         return this.jdbc.queryForList("select * from used_order where user_id = ? order by id limit "+count, id);
      }
      
      //通过订单id来删除订单
@@ -31,4 +34,10 @@ public class UsedOrderDAO {
      {
          this.jdbc.update("delete from used_order where id = ?", id);
      }  
+     
+     //判断用户是否有历史订单,有则返回订单数量,无则返回0
+     public int checkOrder(String id)
+     {
+         return this.jdbc.queryForObject("select count(*) from used_order where user_id = ?", new Object[]{id}, Integer.class);
+     }
 }

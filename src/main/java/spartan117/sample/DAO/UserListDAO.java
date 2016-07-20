@@ -29,13 +29,13 @@ public class UserListDAO {
     
     
     //注册信息写入
-    public String addUser(String phone, String pw) {
+    public String addUser(String phone, String pw,String name) {
         String passwd = DigestUtils.md5Hex(pw);
         Date currentTime = new Date();  
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd- HH:mm:ss");  
          String dateString = sdf.format(currentTime); 
         String userId = generator.getID(phone);
-        String name = phone.substring(0,3) + "****" + phone.substring(7,11);
+//        String name = phone.substring(0,3) + "****" + phone.substring(7,11);
         String sql = "insert into user_list values(?,?,?,?,?,?,?,?,?)";
         this.jdbc.update(sql,userId,phone,passwd,name,"/","0.0",dateString,"0","0","0");
         cbd.BindCreditCard(userId);

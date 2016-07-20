@@ -5,6 +5,8 @@
  */
 package spartan117.sample.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import spartan117.sample.DAO.UnusedOrderDAO;
@@ -16,22 +18,44 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 未使用订单
+ *
  * @author turkeylock
  */
 @RestController
 public class UnusedOrderController {
+    
     @Autowired
     private UnusedOrderDAO unOrder;
-    
-     @RequestMapping(value = "/getUnUsedOrderInfo", method = RequestMethod.GET)
-     public Map<String,Object> getUnusedOrderInfo(@RequestParam("user_id") String UserId,@RequestParam("station_start") String station_start,@RequestParam("station_end")String station_end,@RequestParam("city") String City)
-     {
-         return unOrder.NewUnusedOrder(UserId, station_start, station_end, City);
-     }
-     
-     @RequestMapping(value = "/getUnUsedOrderById", method = RequestMethod.GET)
-     public List<Map<String,Object>> getAllUnusedOrderById(@RequestParam("user_id") String UserId)
-     {
-         return unOrder.getAllUnusedOrderById(UserId);
-     }
+
+    //生成新的未使用订单并返回订单号和订单价格
+    @RequestMapping(value = "/getUnUsedOrderInfo", method = RequestMethod.GET)
+    public Map<String, Object> getUnusedOrderInfo(@RequestParam("user_id") String UserId, @RequestParam("station_start") String station_start, @RequestParam("station_end") String station_end, @RequestParam("city") String City) {
+        return unOrder.NewUnusedOrder(UserId, station_start, station_end, City);
+    }
+
+    //通过用户id查询所有未使用的订单
+    @RequestMapping(value = "/getUnUsedOrderById", method = RequestMethod.GET)
+    public List<Map<String, Object>> getAllUnusedOrderById(@RequestParam("user_id") String UserId) {
+        if(unOrder.checkUserId(UserId))
+            return unOrder.getAllUnusedOrderById(UserId);
+        else{
+            Map<String,Object> noOrder = new HashMap<String,Object>();
+            noOrder.put("message", "您还没有订单");
+            List<Map<String, Object>> noList = new ArrayList<Map<String, Object>>();
+            noList.add(noOrder);
+            return noList;
+        }
+    }
+
+    //通过订单号查询单笔订单id和订单价格信息
+    @RequestMapping(value = "/getUnusedOrderByOrderId", method = RequestMethod.GET)
+    public Map<String, Object> getUnusedOrderByOrderId(@RequestParam("id") String id) {
+        if (unOrder.checkOrderId(id)) {
+            return unOrder.getUnusedOrderByOrderId(id);
+        }else{
+            Map<String,Object> noOrder = new HashMap<String,Object>();
+            noOrder.put("cash_cost", "您没有这张订单");
+            return noOrder;
+        }
+    }
 }
