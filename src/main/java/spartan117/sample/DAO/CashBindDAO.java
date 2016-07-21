@@ -5,6 +5,7 @@
  */
 package spartan117.sample.DAO;
 
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,6 +39,12 @@ public class CashBindDAO {
         this.jdbc.update("update cash_bind set alipay_id = ? where user_id = ?",AlipayId,UserId);
     }
     
+    //绑定微信账号
+    public void BindWeChat(String UserId,String WeChatId)
+    {
+        this.jdbc.update("update cash_bind set weChat_id = ? where user_id = ?",WeChatId,UserId);
+    }    
+    
     //解绑银行卡
     public void UnbundedCreditCard(String UserId)
     {
@@ -50,10 +57,22 @@ public class CashBindDAO {
         this.jdbc.update("update cash_bind set alipay_id = null where user_id = ?",UserId);
     }
     
-    //查询用户绑定状况
-    public Map<String,Object> SearchUserBindInfo(String UserId)
+    //解绑微信账号
+    public void UnbundedWeChat(String UserId)
     {
-        return this.jdbc.queryForMap("select * from cash_bind where id = ?", UserId);
+        this.jdbc.update("update cash_bind set weChat_id = null where user_id = ?",UserId);
+    }
+    
+    //查询用户绑定状况
+    public List<Map<String,Object>> SearchUserBindInfo(String UserId)
+    {
+        return this.jdbc.queryForList("select * from cash_bind where user_id = ?", UserId);
+    }
+    
+    //判断用户绑定支付方式的数量
+    public int checkBind(String id)
+    {
+        return this.jdbc.queryForObject("select count(*) from cash_bind where user_id = ?", new Object[]{id}, Integer.class);
     }
     
 }

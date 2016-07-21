@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import spartan117.sample.DAO.UserListDAO;
 
 /**
  * 未使用订单
@@ -27,17 +28,23 @@ public class UnusedOrderController {
     @Autowired
     private UnusedOrderDAO unOrder;
 
-    //生成新的未使用订单并返回订单号和订单价格
+    @Autowired
+    private UserListDAO ul;
+    
+    //生成新的未使用订单并返回订单号和订单价格（单程票扣除余额时间点）
     @RequestMapping(value = "/getUnUsedOrderInfo", method = RequestMethod.GET)
     public Map<String, Object> getUnusedOrderInfo(@RequestParam("user_id") String UserId, @RequestParam("station_start") String station_start, @RequestParam("station_end") String station_end, @RequestParam("city") String City) {
-        return unOrder.NewUnusedOrder(UserId, station_start, station_end, City);
+        Map<String,Object> res = this.unOrder.NewUnusedOrder(UserId, station_start, station_end, City);
+        float pay = -Float.parseFloat(res.get("balance").toString());
+        ul.updateUserCash(UserId, pay);
+        return res;
     }
 
     //通过用户id查询所有未使用的订单
     @RequestMapping(value = "/getUnUsedOrderById", method = RequestMethod.GET)
     public List<Map<String, Object>> getAllUnusedOrderById(@RequestParam("user_id") String UserId) {
         if(unOrder.checkUserId(UserId))
-            return unOrder.getAllUnusedOrderById(UserId);
+            return this.unOrder.getAllUnusedOrderById(UserId);
         else{
             Map<String,Object> noOrder = new HashMap<String,Object>();
             noOrder.put("message", "您还没有订单");

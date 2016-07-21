@@ -59,7 +59,7 @@ public class UnusedOrderDAO {
     //根据订单号查询单笔订单
     public Map<String,Object> getUnusedOrderByOrderId(String id)
     {
-        return this.jdbc.queryForMap("select cost_cash from unused_order where id = ?", id);
+        return this.jdbc.queryForMap("select * from unused_order where id = ?", id);
     }
     
     //检查订单是否存在

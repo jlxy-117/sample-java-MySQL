@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 /**
- *接受到后台的所有的密码是加密的！！！！！！！！！！！！！！！！！
+ * 接受到后台的所有的密码是加密的！！！！！！！！！！！！！！！！！
  * @author turkeylock
  */
 @Component
@@ -30,21 +30,45 @@ public class UserListDAO {
     
     //注册信息写入
     public String addUser(String phone, String pw,String name) {
+        if(this.checkPhone(phone))
+            return "Existed";
         String passwd = DigestUtils.md5Hex(pw);
         Date currentTime = new Date();  
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd- HH:mm:ss");  
          String dateString = sdf.format(currentTime); 
         String userId = generator.getID(phone);
 //        String name = phone.substring(0,3) + "****" + phone.substring(7,11);
-        String sql = "insert into user_list values(?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into user_list values(?,?,?,?,?,?,?,?,?,?)";
         this.jdbc.update(sql,userId,phone,passwd,name,"/","0.0",dateString,"0","0","0");
         cbd.BindCreditCard(userId);
         return userId;
     }
     
+    //后台特殊人群写入信息
+    public String addUser4Sp(String phone, String pw,String name,String type,String cash) {
+        if(this.checkPhone(phone))
+            return "Existed";
+        String passwd = DigestUtils.md5Hex(pw);
+        Date currentTime = new Date();  
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd- HH:mm:ss");  
+         String dateString = sdf.format(currentTime); 
+        String userId = generator.getID(phone);
+//        String name = phone.substring(0,3) + "****" + phone.substring(7,11);
+        String sql = "insert into user_list values(?,?,?,?,?,?,?,?,?,?)";
+        if("old".equals(type))
+            this.jdbc.update(sql,userId,phone,passwd,name,"/",cash,dateString,"1","0","0");
+        else if("student".equals(type))
+            this.jdbc.update(sql,userId,phone,passwd,name,"/",cash,dateString,"0","1","0");
+        else
+            this.jdbc.update(sql,userId,phone,passwd,name,"/",cash,dateString,"0","0","1");
+        cbd.BindCreditCard(userId);
+        return userId;
+    }
+    
+    
     //删除用户
-    public void deleteUser(String UserId) {
-        this.jdbc.update("delete from user_list where id = ?",UserId);
+    public void deleteUserByPhone(String phone) {
+        this.jdbc.update("delete from user_list where phone_number = ?",phone);
     }
 
     //更改密码（加密格式统一）
@@ -133,4 +157,9 @@ public class UserListDAO {
         return password.equals(map.get("user_password"));
     }
 
+    //通过手机判断用户是否已存在
+    public boolean checkPhone(String phone)
+    {
+        return this.jdbc.queryForObject("select count(*) from user_list where phone_number = ?", new Object[]{phone}, Integer.class)==1;
+    }
 }

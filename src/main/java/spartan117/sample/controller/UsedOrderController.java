@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class UsedOrderController {
 
     @Autowired
     private UsedOrderDAO uo;
-
+    
     @RequestMapping(value = "/getUsedOrder", method = RequestMethod.GET)
     public List<Map<String, Object>> getUserOrder(@RequestParam("user_id") String id) {
         if (uo.checkOrder(id) == 0) {
