@@ -23,7 +23,8 @@ public class CityStationDAO {
     //查询某城市一条线路上所有站点
     public List<Map<String,Object>> getAllStation(String city,String line)
     {
-        return this.jdbc.queryForList("select * from city_station where city = ? and id like '?%'",city,line);
+        String search = line+"%";
+        return this.jdbc.queryForList("select * from city_station where city = ? and id like ?",city,search);
     }
     
 }

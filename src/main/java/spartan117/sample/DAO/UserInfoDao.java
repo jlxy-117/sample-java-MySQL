@@ -46,8 +46,6 @@ public class UserInfoDAO {
             m.put("type","学生");
         else
             m.put("type", "普通");
-//        System.out.println(m.get("discount").toString());
-//        System.out.println(m.get("valid").toString());
         return m;
     }
 }

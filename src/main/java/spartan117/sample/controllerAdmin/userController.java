@@ -17,7 +17,7 @@ import spartan117.sample.DAO.UserListDAO;
  * @author turkeylock
  */
 @RestController
-public class userController {
+public class UserController {
     
     @Autowired
     private UserListDAO uld;

@@ -5,13 +5,8 @@
  */
 package spartan117.sample.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import spartan117.sample.DAO.UserListDAO;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import spartan117.sample.DAO.CashOrderDAO;
 
 /**
@@ -35,24 +29,6 @@ public class UserListController {
 
     @Autowired
     private CashOrderDAO co;
-
-    /**
-     * 注册
-     *
-     * @param phone
-     * @param password
-     * @param name
-     * @return
-     */
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String do_register(@RequestParam("phone") String phone, @RequestParam("password") String password, @RequestParam("name") String name,HttpServletResponse response) throws IOException {
-        String info = uld.addUser(phone, password, name);
-        if (info.equals("Existed")) {
-            return info;
-        } else {
-            return "http://localhost:9091/login?phone=" + phone + "&password=" + password;
-        }
-    }
 
     /**
      * 修改密码

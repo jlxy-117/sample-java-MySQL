@@ -22,21 +22,21 @@ public class AdminController {
     private DiscountDAO ddo;
     
     //修改某一城市普通用户的折扣
-    @RequestMapping(value="/discount/user",method = RequestMethod.POST)
+    @RequestMapping(value="/discountUser",method = RequestMethod.POST)
     public void updateDiscount4User(@RequestParam("city_id") String cityId,@RequestParam("discount") String newDiscount)
     {
         ddo.discountSet(cityId, newDiscount);
     }
     
     //修改某一城市老人的折扣
-    @RequestMapping(value="/discount/elder",method = RequestMethod.POST)
+    @RequestMapping(value="/discountElder",method = RequestMethod.POST)
     public void updateDiscount4Elder(@RequestParam("city_id") String cityId,@RequestParam("discount") String newDiscount)
     {
         ddo.discount4tForOld(cityId, newDiscount);
     }
     
     //修改某一城市老学生的折扣
-    @RequestMapping(value="/discount/stu",method = RequestMethod.POST)
+    @RequestMapping(value="/discountStu",method = RequestMethod.POST)
     public void updateDiscount4Student(@RequestParam("city_id") String cityId,@RequestParam("discount") String newDiscount)
     {
         ddo.discountSet4Student(cityId, newDiscount);

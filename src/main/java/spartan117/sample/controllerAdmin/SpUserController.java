@@ -36,5 +36,4 @@ public class SpUserController {
             return "success";
         }
     }
-
 }

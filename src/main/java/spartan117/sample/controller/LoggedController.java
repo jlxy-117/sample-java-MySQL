@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class LoggedController {
-//    //用于测试
-//    @RequestMapping(value = "/user", method = RequestMethod.GET)
-//    public String UserInfo(HttpServletRequest request, HttpServletResponse response){
-////        System.out.println("logged");
-//        return "登陆后页面";
-//    }
+    //用于检测登录与否
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public String UserInfo(HttpServletRequest request, HttpServletResponse response){
+//        System.out.println("logged");
+        return "success";
+    }
     
     //用于注销测试
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
