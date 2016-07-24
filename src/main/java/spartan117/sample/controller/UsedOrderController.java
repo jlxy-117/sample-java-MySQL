@@ -28,7 +28,7 @@ public class UsedOrderController {
 
     @Autowired
     private UsedOrderDAO uo;
-    
+    //默认查询订单，显示前10条数据
     @RequestMapping(value = "/getUsedOrder", method = RequestMethod.GET)
     public List<Map<String, Object>> getUserOrder(@RequestParam("user_id") String id) {
         if (uo.checkOrder(id) == 0) {
@@ -39,6 +39,20 @@ public class UsedOrderController {
             return noList;
         } else {
             return uo.getUsedOrderById(id);
+        }
+    }
+    
+    //按照时间查询订单
+    @RequestMapping(value = "/getUsedOrderByMonth", method = RequestMethod.GET)
+    public List<Map<String, Object>> getUserOrderByMonth(@RequestParam("user_id") String id,@RequestParam("date")String date) {
+        if (uo.checkOrder(id) == 0) {
+            Map<String, Object> noOrder = new HashMap<String, Object>();
+            noOrder.put("message", "您还没有订单");
+            List<Map<String, Object>> noList = new ArrayList<Map<String, Object>>();
+            noList.add(noOrder);
+            return noList;
+        } else {
+            return uo.getUsedOrderByMonth(id,date);
         }
     }
 }

@@ -17,8 +17,6 @@ public class IDGenerator_phone implements IIDGenerator{
 
     @Override
     public String getID(String seed) {
-        if(seed.length()<=4)
-            return "generator failed";
         String phone_seed = seed.substring(seed.length()-4 , seed.length());  
         Date currentTime = new Date();  
         SimpleDateFormat sdf = new SimpleDateFormat("YYMMddHHmmssSSS");  
