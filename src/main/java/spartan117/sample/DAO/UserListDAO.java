@@ -58,9 +58,9 @@ public class UserListDAO {
         if("old".equals(type))
             this.jdbc.update(sql,userId,phone,passwd,name,"/",cash,dateString,"1","0","0");
         else if("student".equals(type))
-            this.jdbc.update(sql,userId,phone,passwd,name,"/",cash,dateString,"0","1","0");
-        else
             this.jdbc.update(sql,userId,phone,passwd,name,"/",cash,dateString,"0","0","1");
+        else
+            this.jdbc.update(sql,userId,phone,passwd,name,"/",cash,dateString,"0","1","0");
         cbd.BindCreditCard(userId);
         return userId;
     }
