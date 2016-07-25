@@ -35,7 +35,7 @@ public class UnusedOrderDAO {
         IIDGenerator seed = new IDGenerator_random();
         String id = seed.getID("4");
         Date currentTime = new Date();  
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");  
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");  
         String date = sdf.format(currentTime); 
         Map<String, Object> result = new HashMap<String,Object>();
         result.put("id", id);
