@@ -53,7 +53,7 @@ public class UnusedOrderDAO {
     //根据用户查找其所有的未使用订单
     public List<Map<String,Object>> getAllUnusedOrderById(String UserId)
     {
-        return this.jdbc.queryForList("select * from unused_order where user_id = ?",UserId);
+        return this.jdbc.queryForList("select * from unused_order where user_id = ? order by id DESC",UserId);
     }
     
     //根据订单号查询单笔订单

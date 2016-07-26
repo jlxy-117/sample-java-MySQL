@@ -35,7 +35,7 @@ public class UsedOrderDAO {
     //通过用户id和年月时间查询记录
     public List<Map<String,Object>> getUsedOrderByMonth(String id,String date){
         String month = date+"%";
-        return this.jdbc.queryForList("select * from used_order where user_id = ? and cost_date = ?", id,month);
+        return this.jdbc.queryForList("select * from used_order where user_id = ? and cost_date like ? order by cost_date DESC", id,month);
     }
 
     //通过订单id来删除订单

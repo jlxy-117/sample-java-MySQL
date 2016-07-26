@@ -34,7 +34,7 @@ public class CashOrderDAO {
     
     //查询某一用户充值记录
     public List<Map<String,Object>> getCashOrderById(String user_id){
-        return jdbc.queryForList("select * from cash_order where user_id=?", user_id);
+        return jdbc.queryForList("select * from cash_order where user_id=? order by date DESC", user_id);
     }
     
 }

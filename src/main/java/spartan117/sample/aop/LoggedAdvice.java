@@ -44,7 +44,7 @@ public class LoggedAdvice {
         if(session.getAttribute("user_id")==null){
             try {
                 //跳转页面
-                response.sendRedirect("http://localhost:8088/117project/login.php");
+                response.sendRedirect("http://localhost:8088/subway/signin.php");
             } catch (IOException ex) {
                 Logger.getLogger(LoggedAdvice.class.getName()).log(Level.SEVERE, null, ex);
             }
