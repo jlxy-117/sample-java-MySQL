@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import spartan117.sample.DAO.UnusedOrderDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +42,8 @@ public class UnusedOrderController {
     
     //生成新的未使用订单并返回订单号和订单价格（单程票扣除余额时间点）
     @RequestMapping(value = "/getUnUsedOrderInfo", method = RequestMethod.GET)
-    public Map<String, Object> getUnusedOrderInfo(@RequestParam("user_id") String UserId, @RequestParam("station_start") String station_start, @RequestParam("station_end") String station_end, @RequestParam("city") String City) {
+    public Map<String, Object> getUnusedOrderInfo(@RequestParam("station_start") String station_start, @RequestParam("station_end") String station_end, @RequestParam("city") String City,HttpServletRequest request,HttpServletResponse response) {
+        String UserId = request.getSession().getAttribute("user_id").toString();
         Map<String,Object> res = this.unOrder.NewUnusedOrder(UserId, station_start, station_end, City);
         float pay = -Float.parseFloat(res.get("balance").toString());
         ul.updateUserCash(UserId, pay);

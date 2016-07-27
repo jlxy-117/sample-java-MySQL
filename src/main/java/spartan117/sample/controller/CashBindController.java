@@ -5,8 +5,12 @@
  */
 package spartan117.sample.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,8 +28,9 @@ public class CashBindController {
     private CashBindDAO cb;
     
     @RequestMapping(value = "/cashBind/credit_card", method = RequestMethod.POST)
-    public void BindCreditCard(@RequestParam("user_id") String user_id,@RequestParam("credit_card") String CreditCard)
+    public void BindCreditCard(@RequestParam("credit_card") String CreditCard,HttpServletRequest request,HttpServletResponse response)
     {
+        String user_id = request.getSession().getAttribute("user_id").toString();
         cb.BindCreditCard(user_id);
     }
     
@@ -41,10 +46,16 @@ public class CashBindController {
         cb.BindWeChat(user_id, weChatId);
     }
     
-    @RequestMapping(value = "/recharge", method = RequestMethod.GET)
+    @RequestMapping(value = "/SearchBindInfo", method = RequestMethod.GET)
     public List<Map<String,Object>> SearchBindInfo(@RequestParam("user_id") String user_id)
     {
         return cb.SearchUserBindInfo(user_id);
+    }
+    
+        @RequestMapping(value = "/CheckBindInfo", method = RequestMethod.GET)
+    public boolean CheckBindInfo(@RequestParam("user_id") String user_id)
+    {
+        return cb.checkBind(user_id)!=0;
     }
     
 }

@@ -39,6 +39,8 @@ public class RegisterController {
         if (info.equals("Existed")) {
             return info;
         } else {
+            request.getSession().setAttribute("user_id", info);
+            request.getSession().setMaxInactiveInterval(10*60);
             return "success";
           //  return "http://localhost:9091/login?phone=" + phone + "&password=" + password;
         }

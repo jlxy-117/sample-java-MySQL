@@ -28,18 +28,18 @@ public class LoggedController {
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String UserInfo(HttpServletRequest request, HttpServletResponse response){
 //        System.out.println("logged");
-        return "success";
+        return request.getSession().getAttribute("user_id").toString();
     }
     
     //用于注销测试
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public void do_logout(HttpServletRequest request, HttpServletResponse response){
-        request.getSession().invalidate();
-        try {
-            response.sendRedirect("http://localhost:8088/117project/login.php");
-        } catch (IOException ex) {
-            Logger.getLogger(LoggedController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+//    public void do_logout(HttpServletRequest request, HttpServletResponse response){
+//        request.getSession().invalidate();
+//        try {
+//            response.sendRedirect("http://localhost:8088/117project/login.php");
+//        } catch (IOException ex) {
+//            Logger.getLogger(LoggedController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     
 }
