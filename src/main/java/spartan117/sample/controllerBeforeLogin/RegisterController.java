@@ -6,6 +6,7 @@
 package spartan117.sample.controllerBeforeLogin;
 
 import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,12 +34,13 @@ public class RegisterController {
      * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String do_register(@RequestParam("phone") String phone, @RequestParam("password") String password, @RequestParam("name") String name,HttpServletResponse response) throws IOException {
+    public String do_register(@RequestParam("phone") String phone, @RequestParam("password") String password, @RequestParam("name") String name,HttpServletResponse response,HttpServletRequest request) throws IOException {
         String info = uld.addUser(phone, password, name);
         if (info.equals("Existed")) {
             return info;
         } else {
-            return "http://localhost:9091/login?phone=" + phone + "&password=" + password;
+            return "success";
+          //  return "http://localhost:9091/login?phone=" + phone + "&password=" + password;
         }
     }
 

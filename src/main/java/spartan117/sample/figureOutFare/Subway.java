@@ -110,7 +110,7 @@ public class Subway {
                 if (line.contains(route.get(i)) && line.indexOf(route.get(i + 1)) != -1) { //若路线下一站在此线路中则累加里程
                     Station s = line.get(line.indexOf(route.get(i)));
                     sum += s.nextDistance.get(route.get(i + 1));
-                    //       System.out.println(s.getName() + "sum=" + sum);
+                           System.out.println(s.getName() + "sum=" + sum);
                 }
             }
         }

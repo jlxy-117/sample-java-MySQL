@@ -44,6 +44,12 @@ public class UnusedOrderDAO {
         return result;
     }
     
+    //返回订单价格
+    public float FigureOutPrice(String station_start,String station_end)
+    {
+        return p.getPrice(station_start,station_end);
+    }
+    
     //删除已使用的订单
     public void DeleteUsedOrder(String OrderId)
     {

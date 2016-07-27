@@ -31,6 +31,13 @@ public class UnusedOrderController {
     @Autowired
     private UserListDAO ul;
     
+    //计算两站地铁的价格并返回
+    @RequestMapping(value = "/getPrice", method = RequestMethod.GET)
+    public float getPrice(@RequestParam("station_first") String station_start,@RequestParam("station_last") String station_end)
+    {
+        return unOrder.FigureOutPrice(station_start, station_end);
+    }
+    
     //生成新的未使用订单并返回订单号和订单价格（单程票扣除余额时间点）
     @RequestMapping(value = "/getUnUsedOrderInfo", method = RequestMethod.GET)
     public Map<String, Object> getUnusedOrderInfo(@RequestParam("user_id") String UserId, @RequestParam("station_start") String station_start, @RequestParam("station_end") String station_end, @RequestParam("city") String City) {
