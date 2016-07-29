@@ -5,6 +5,7 @@
  */
 package spartan117.sample.DAO;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,12 @@ public class UsedOrderDAO {
     //判断用户是否有历史订单,有则返回订单数量,无则返回0
     public int checkOrder(String id) {
         return this.jdbc.queryForObject("select count(*) from used_order where user_id = ?", new Object[]{id}, Integer.class);
+    }
+    
+    //判断用户当前月份有无订单
+    public int checkOrder(String id,String date) {
+        String month = date+"%";
+        return this.jdbc.queryForObject("select count(*) from used_order where user_id = ? and cost_date like ?", new Object[]{id,month}, Integer.class);
     }
 
     //插入历史订单(个人票)

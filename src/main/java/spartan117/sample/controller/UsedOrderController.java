@@ -49,7 +49,7 @@ public class UsedOrderController {
     @RequestMapping(value = "/getUsedOrderByMonth", method = RequestMethod.GET)
     public List<Map<String, Object>> getUserOrderByMonth(HttpServletRequest request,HttpServletResponse response,@RequestParam("date")String date) {
         String id = request.getSession().getAttribute("user_id").toString();
-        if (uo.checkOrder(id) == 0) {
+        if (uo.checkOrder(id,date) == 0) {
             Map<String, Object> noOrder = new HashMap<String, Object>();
             noOrder.put("message", "您还没有订单");
             List<Map<String, Object>> noList = new ArrayList<Map<String, Object>>();

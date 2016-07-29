@@ -26,7 +26,7 @@ public class CashOrderDAO {
     //插入充值记录
     public void updateCashOrder(String user_id, float cash, String method){
         Date currentTime = new Date();  
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");  
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");  
         String date = sdf.format(currentTime); 
         String sql = "insert into cash_order(user_id,cash,method,date) values(?,?,?,?)";
         jdbc.update(sql, user_id, cash, method, date);
