@@ -27,34 +27,38 @@ public class CashBindController {
     @Autowired
     private CashBindDAO cb;
     
-    @RequestMapping(value = "/cashBind/credit_card", method = RequestMethod.POST)
+    @RequestMapping(value = "/cashBind_credit_card", method = RequestMethod.POST)
     public void BindCreditCard(@RequestParam("credit_card") String CreditCard,HttpServletRequest request,HttpServletResponse response)
     {
         String user_id = request.getSession().getAttribute("user_id").toString();
         cb.BindCreditCard(user_id);
     }
     
-    @RequestMapping(value = "/cashBind/alipay", method = RequestMethod.POST)
-    public void BindAlipayId(@RequestParam("user_id") String user_id,@RequestParam("alipay_id") String alipayId)
+    @RequestMapping(value = "/cashBind_alipay", method = RequestMethod.POST)
+    public void BindAlipayId(@RequestParam("alipay_id") String alipayId,HttpServletRequest request,HttpServletResponse response)
     {
+        String user_id = request.getSession().getAttribute("user_id").toString();
         cb.BindAlipay(user_id, alipayId);
     }
     
-    @RequestMapping(value = "/cashBind/WeChat", method = RequestMethod.POST)
-    public void BindWeChat(@RequestParam("user_id") String user_id,@RequestParam("weChat_id") String weChatId)
+    @RequestMapping(value = "/cashBind_WeChat", method = RequestMethod.POST)
+    public void BindWeChat(HttpServletRequest request,HttpServletResponse response,@RequestParam("weChat_id") String weChatId)
     {
+        String user_id = request.getSession().getAttribute("user_id").toString();
         cb.BindWeChat(user_id, weChatId);
     }
     
     @RequestMapping(value = "/SearchBindInfo", method = RequestMethod.GET)
-    public List<Map<String,Object>> SearchBindInfo(@RequestParam("user_id") String user_id)
+    public Map<String,Object> SearchBindInfo(HttpServletRequest request,HttpServletResponse response)
     {
+        String user_id = request.getSession().getAttribute("user_id").toString();
         return cb.SearchUserBindInfo(user_id);
     }
     
-        @RequestMapping(value = "/CheckBindInfo", method = RequestMethod.GET)
-    public boolean CheckBindInfo(@RequestParam("user_id") String user_id)
+    @RequestMapping(value = "/CheckBindInfo", method = RequestMethod.GET)
+    public boolean CheckBindInfo(HttpServletRequest request,HttpServletResponse response)
     {
+        String user_id = request.getSession().getAttribute("user_id").toString();
         return cb.checkBind(user_id)!=0;
     }
     

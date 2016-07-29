@@ -25,16 +25,17 @@ public class CashOrderDAO {
     
     //插入充值记录
     public void updateCashOrder(String user_id, float cash, String method){
-         Date currentTime = new Date();  
+        Date currentTime = new Date();  
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");  
         String date = sdf.format(currentTime); 
         String sql = "insert into cash_order(user_id,cash,method,date) values(?,?,?,?)";
         jdbc.update(sql, user_id, cash, method, date);
     }
     
-    //查询某一用户充值记录
-    public List<Map<String,Object>> getCashOrderById(String user_id){
-        return jdbc.queryForList("select * from cash_order where user_id=? order by date DESC", user_id);
+    //按月查询某一用户充值记录
+    public List<Map<String,Object>> getCashOrderById(String user_id,String date){
+        String month = date+"%";
+        return jdbc.queryForList("select * from cash_order where user_id=? and date like ? order by date DESC", user_id,month);
     }
     
 }

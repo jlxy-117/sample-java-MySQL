@@ -52,7 +52,8 @@ public class UnusedOrderController {
 
     //通过用户id查询所有未使用的订单
     @RequestMapping(value = "/getUnUsedOrderById", method = RequestMethod.GET)
-    public List<Map<String, Object>> getAllUnusedOrderById(@RequestParam("user_id") String UserId) {
+    public List<Map<String, Object>> getAllUnusedOrderById(HttpServletRequest request,HttpServletResponse response) {
+        String UserId = request.getSession().getAttribute("user_id").toString();
         if(unOrder.checkUserId(UserId))
             return this.unOrder.getAllUnusedOrderById(UserId);
         else{

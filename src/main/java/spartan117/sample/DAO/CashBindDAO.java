@@ -64,9 +64,9 @@ public class CashBindDAO {
     }
     
     //查询用户绑定状况
-    public List<Map<String,Object>> SearchUserBindInfo(String UserId)
+    public Map<String,Object> SearchUserBindInfo(String UserId)
     {
-        return this.jdbc.queryForList("select * from cash_bind where user_id = ?", UserId);
+        return this.jdbc.queryForMap("select * from cash_bind where user_id = ?", UserId);
     }
     
     //判断用户绑定支付方式的数量

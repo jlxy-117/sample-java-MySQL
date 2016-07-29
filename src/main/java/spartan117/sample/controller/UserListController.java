@@ -7,6 +7,8 @@ package spartan117.sample.controller;
 
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,12 +35,13 @@ public class UserListController {
     /**
      * 修改密码
      *
-     * @param user_id
+     * @param request
+     * @param response
      * @param password
      */
     @RequestMapping(value = "/password", method = RequestMethod.POST)
-    public void do_changePasswd(@RequestParam("user_id") String user_id, @RequestParam("password") String password, HttpSession session) {
-//        String user_id = session.getAttribute("user_id").toString();
+    public void do_changePasswd(HttpServletRequest request,HttpServletResponse response, @RequestParam("password") String password, HttpSession session) {
+        String user_id = request.getSession().getAttribute("user_id").toString();
         String passwd = DigestUtils.md5Hex(password);
         uld.updateUserPassword(user_id, passwd);
     }
@@ -46,62 +49,68 @@ public class UserListController {
     /**
      * 修改昵称
      *
-     * @param user_id
+     * @param request
+     * @param response
      * @param name
      */
     @RequestMapping(value = "/name", method = RequestMethod.POST)
-    public void do_changeName(@RequestParam("user_id") String user_id, @RequestParam("name") String name, HttpSession session) {
-//        String user_id = session.getAttribute("user_id").toString();
+    public void do_changeName(HttpServletRequest request,HttpServletResponse response, @RequestParam("name") String name) {
+        String user_id = request.getSession().getAttribute("user_id").toString();
         uld.updateUserName(user_id, name);
     }
 
     /**
      * 修改手机号
      *
-     * @param user_id
+     * @param request
+     * @param response
      * @param phone
      */
     @RequestMapping(value = "/phone", method = RequestMethod.POST)
-    public void do_changePhone(@RequestParam("user_id") String user_id, @RequestParam("phone") String phone, HttpSession session) {
-//        String user_id = session.getAttribute("user_id").toString();
+    public void do_changePhone(HttpServletRequest request,HttpServletResponse response,@RequestParam("phone") String phone) {
+        String user_id = request.getSession().getAttribute("user_id").toString();
         uld.updateUserPhone(user_id, phone);
     }
 
     /**
      * 修改头像路径
      *
-     * @param user_id
+     * @param request
+     * @param response
      * @param pic
      */
     @RequestMapping(value = "/pic", method = RequestMethod.POST)
-    public void do_changePic(@RequestParam("user_id") String user_id, @RequestParam("pic") String pic, HttpSession session) {
-//        String user_id = session.getAttribute("user_id").toString();        
+    public void do_changePic(HttpServletRequest request,HttpServletResponse response, @RequestParam("pic") String pic) {
+        String user_id = request.getSession().getAttribute("user_id").toString();        
         uld.updateUserPic(user_id, pic);
     }
 
     /**
      * 充值
      *
-     * @param user_id
+     * @param request
+     * @param response
      * @param cash
      * @param method
      */
     @RequestMapping(value = "/recharge", method = RequestMethod.POST)
-    public void do_changeCash(@RequestParam("user_id") String user_id, @RequestParam("cash") String cash, @RequestParam("method") String method, HttpSession session) {
-//        String user_id = session.getAttribute("user_id").toString();        
+    public void do_changeCash(HttpServletRequest request,HttpServletResponse response, @RequestParam("cash") String cash, @RequestParam("method") String method) {
+        String user_id = request.getSession().getAttribute("user_id").toString();        
         co.updateCashOrder(user_id, Float.parseFloat(cash), method);
         uld.updateUserCash(user_id, Float.parseFloat(cash));
     }
-
+    
     /**
      * 查询充值记录
      *
-     * @param user_id
+     * @param request
+     * @param response
+     * @param date
      * @return
      */
     @RequestMapping(value = "/checkRecharge", method = RequestMethod.GET)
-    public List<Map<String, Object>> do_changeCash(@RequestParam("user_id") String user_id, HttpSession session) {
-//        String user_id = session.getAttribute("user_id").toString();  
-        return co.getCashOrderById(user_id);
+    public List<Map<String, Object>> do_changeCash(@RequestParam("date") String date,HttpServletRequest request,HttpServletResponse response) {
+        String user_id = request.getSession().getAttribute("user_id").toString();  
+        return co.getCashOrderById(user_id,date);
     }
 }

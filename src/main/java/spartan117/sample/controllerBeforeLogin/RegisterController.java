@@ -6,6 +6,7 @@
 package spartan117.sample.controllerBeforeLogin;
 
 import java.io.IOException;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class RegisterController {
      * @param phone
      * @param password
      * @param name
+     * @param request
+     * @param response
      * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -41,7 +44,7 @@ public class RegisterController {
         } else {
             request.getSession().setAttribute("user_id", info);
             request.getSession().setMaxInactiveInterval(10*60);
-            return "success";
+            return info;
           //  return "http://localhost:9091/login?phone=" + phone + "&password=" + password;
         }
     }
